@@ -10,7 +10,7 @@ const Add:React.FC<UpdateList> = ({handleUpdateList,todoList}) => {
     }
   return ( 
     <form onSubmit={(event)=>updateListItems(event)} className="add-container">
-        <input value={listItem.item} onChange={(event)=>setListItems({...listItem,item:event.target.value,id:todoList.length+1})} type="text" placeholder="Enter Task Here" />
+        <input id="add-input" value={listItem.item} onChange={(event)=>setListItems({...listItem,item:event.target.value,id:todoList.length+1})} type="text" placeholder="Enter Task Here" />
         <button type="submit">Add</button>
     </form>
   )

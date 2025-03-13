@@ -1,4 +1,5 @@
-
+import { DataFromForm } from "../Pages/FormComponent/FormComponent";
+import { UseFormRegister,FieldErrors ,UseFormHandleSubmit} from "react-hook-form";
 export interface Users{
     users:Welcome[]
 }
@@ -114,4 +115,10 @@ export interface ChildProps {
     isList?:boolean;
     updateStatus:(id:number)=>void | null;
     handleDelete:(index:number)=>void;
+  }
+  export interface StepperComponentProps{
+    register:UseFormRegister<DataFromForm>;
+    errors:FieldErrors<DataFromForm>;
+    handleSubmit:UseFormHandleSubmit<DataFromForm, undefined>;
+    updateStepper:(step: number) => void
   }

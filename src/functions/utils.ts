@@ -22,3 +22,10 @@ export const isUser = (userData:Welcome[],value:FormData):Authorization =>{
         return "Email doesnt Exist"
     }
 }
+
+
+// const dateValidation: (value:string,today:string)=>string = (value,today)=>{
+//     return value
+// }
+
+
