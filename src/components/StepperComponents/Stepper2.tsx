@@ -19,7 +19,6 @@ const Stepper2:React.FC<StepperComponentProps> = ({handleSubmit,updateStepper}) 
                 console.log(data);
                 
                 updateStepper(2)
-
             }
             
         }

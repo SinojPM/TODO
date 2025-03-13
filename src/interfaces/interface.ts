@@ -122,3 +122,10 @@ export interface ChildProps {
     handleSubmit:UseFormHandleSubmit<DataFromForm, undefined>;
     updateStepper:(step: number) => void
   }
+
+  export interface stepper3Data{
+    cource:string;
+    yearOfPass:Date;
+    key:String;
+
+  }
