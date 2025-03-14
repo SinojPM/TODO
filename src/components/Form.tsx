@@ -1,20 +1,19 @@
 import { Button, PasswordInput, TextInput } from "@mantine/core"
 import { isEmail, useForm } from "@mantine/form";
-import { useContext, useEffect, useState } from "react";
-import { Users, Welcome ,Authorization} from "../interfaces/interface";
-import { getData } from "../api/axios";
+import { useContext, useEffect } from "react";
+import { Authorization} from "../interfaces/interface";
 import { isUser } from "../functions/utils";
 import { useNavigate } from "react-router";
 import { AuthenticationContext } from "../context/AuthContext";
-
-
-
-
-
+import { useAppDispatch,useAppSelector } from "../Redux/Hooks";
+import { fetchUsers } from "../Redux/slices/userSlice";
 
 const Form = () => {
     const {setIslogined} = useContext<{isLogined:boolean;setIslogined:React.Dispatch<React.SetStateAction<boolean>>}>(AuthenticationContext)
     const navigate = useNavigate()
+    const dispatch = useAppDispatch()
+    const userData = useAppSelector((state)=>state.userReducer.users)
+
     const form = useForm({
         mode: 'uncontrolled',
         initialValues: { email: '' ,password: ""},
@@ -22,26 +21,9 @@ const Form = () => {
             email: isEmail('Invalid email'),
         },
     });
-    const [userData,setUserData] = useState<Welcome[] | []>([])
-
-
     useEffect(()=>{
-       fetchUser() 
+       dispatch(fetchUsers())
     },[])
-    
-    
-    
-    const fetchUser = async()=>{
-        try{
-            const data:Users = await getData()
-            setUserData(data.users)
-            console.log(userData);
-            
-        }catch(err){
-            console.log(err);   
-        }
-    }
-    
     const handleSubmit=(values:typeof form.values)=>{
         console.log(userData);
         const isAuth:Authorization = isUser(userData,values)

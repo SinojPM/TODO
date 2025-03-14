@@ -13,6 +13,7 @@ import {LoginState} from "./interfaces/interface.tsx"
 import FormComponent from './Pages/FormComponent/FormComponent.tsx';
 
 
+
 function App() {
    const { isLogined } = useContext<LoginState>(AuthenticationContext)
   return (
@@ -24,6 +25,7 @@ function App() {
       </Route>
       <Route path='/login' element={isLogined===false?<Auth />:<Navigate to={"/"}/>} />
       <Route path='/form' element={<FormComponent />} />
+
       <Route path='*' element={<NotFound />} />
     </Routes>
   )

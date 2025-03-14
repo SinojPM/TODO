@@ -100,7 +100,6 @@ export interface ChildProps {
 
   export interface UpdateList{
     todoList:ListData[] | [];
-    handleUpdateList:(data:ListData)=>void
   }
 
   export interface LoginState{
@@ -113,8 +112,6 @@ export interface ChildProps {
     index:number;
     isOngoing?:boolean;
     isList?:boolean;
-    updateStatus:(id:number)=>void | null;
-    handleDelete:(index:number)=>void;
   }
   export interface StepperComponentProps{
     register:UseFormRegister<DataFromForm>;

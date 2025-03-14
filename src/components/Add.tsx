@@ -1,11 +1,15 @@
 import { useState } from "react"
 import { ListData, UpdateList } from "../interfaces/interface";
+import { useAppDispatch } from "../Redux/Hooks";
+import { updateList } from "../Redux/slices/todoSlice";
 
-const Add:React.FC<UpdateList> = ({handleUpdateList,todoList}) => {
+
+const Add:React.FC<UpdateList> = ({todoList}) => {
     const [listItem,setListItems] = useState<ListData>({id:0,item:" ",status:"list"})
+    const dispatch = useAppDispatch()
     const updateListItems = (event:React.FormEvent<HTMLFormElement>)=>{
         event.preventDefault()
-        handleUpdateList(listItem)
+        dispatch(updateList(listItem))
         setListItems({id:0,item:" ",status:"list"})
     }
   return ( 

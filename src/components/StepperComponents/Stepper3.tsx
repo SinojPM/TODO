@@ -6,14 +6,11 @@ import { StepperComponentProps } from "../../interfaces/interface";
 import { SubmitHandler } from "react-hook-form";
 import { DataFromForm } from "../../Pages/FormComponent/FormComponent";
 
-
-
-
 const Stepper3:React.FC<StepperComponentProps> = ({handleSubmit,updateStepper}) => {
     const form = useForm({
         mode: 'uncontrolled',
         initialValues: {
-            employees: [{ cource: "", yearOfPass: new Date(), key: randomId() }],
+            employees: [{ cource: '', yearOfPass: new Date(), key: randomId() }],
         },
         validate: {
             employees: {
@@ -30,32 +27,38 @@ const Stepper3:React.FC<StepperComponentProps> = ({handleSubmit,updateStepper}) 
           },
 
     });
-
-
-
     const handleDeleteItem = (index: number): void => {
         if (index > 0) {
             form.removeListItem("employees", index)
-
         }
     }
 
     const onSubmit:SubmitHandler<DataFromForm>=(data)=>{
         form.validate()
-        if (Object.keys(form.errors).length===0) {
-           const {employees} = form.values
-            console.log(employees);
-            data.education=employees
-            console.log(data);
-            
-        }
+        
+        
+            if (!form.validate().hasErrors) {
+                const {employees} = form.getValues()
+                 console.log(employees);
+                 data.education=employees
+                 console.log(data);
+                 updateStepper(3)
+             }else{
+                 console.log("sffgg");
+                 
+             }
+        
     }
+ 
+    
 
 
     return (
         <form onSubmit={handleSubmit(onSubmit)} className="stepper-container">
             {
+                
                 form.getValues().employees.map((item, index) => (
+                    
                     <Group key={item.key} mt="md">
                         <TextInput
                             label="cource"
@@ -68,7 +71,8 @@ const Stepper3:React.FC<StepperComponentProps> = ({handleSubmit,updateStepper}) 
                         <YearPickerInput
                             label="Pick date"
                             placeholder="Pick date"
-                            {...form.getInputProps(`employees.${index}.yearOfPass`)}
+                            key={form.key(`employees.${index}.yearOfPass`)}
+                            {...form.getInputProps(`employees.${index}.yearOfPass`,{type:'input'})}
                         />
                         <ActionIcon mt={20} color="red" onClick={() => handleDeleteItem(index)}>
                             <i className="fa-solid fa-trash"></i>
@@ -77,7 +81,7 @@ const Stepper3:React.FC<StepperComponentProps> = ({handleSubmit,updateStepper}) 
                 ))
             }
             <div className="btn-container">
-            <Button color="green" mt="lg" onClick={() => form.insertListItem("employees", { Cource: '', yearOfPass: new Date(), key: randomId() })}>Add</Button>
+            <Button color="green" mt="lg" onClick={() => form.insertListItem("employees", { cource: '', yearOfPass: new Date(), key: randomId() })}>Add</Button>
             <Button mt="lg" type="submit">Submit</Button>
             </div>
         </form>
